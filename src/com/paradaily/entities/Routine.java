@@ -30,10 +30,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "routine")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Routine_1.findAll", query = "SELECT r FROM Routine_1 r")
-    , @NamedQuery(name = "Routine_1.findById", query = "SELECT r FROM Routine_1 r WHERE r.id = :id")
-    , @NamedQuery(name = "Routine_1.findByNameRoutine", query = "SELECT r FROM Routine_1 r WHERE r.nameRoutine = :nameRoutine")
-    , @NamedQuery(name = "Routine_1.findByNotification", query = "SELECT r FROM Routine_1 r WHERE r.notification = :notification")})
+    @NamedQuery(name = "Routine.findAll", query = "SELECT r FROM Routine_1 r")
+    , @NamedQuery(name = "Routine.findById", query = "SELECT r FROM Routine_1 r WHERE r.id = :id")
+    , @NamedQuery(name = "Routine.findByNameRoutine", query = "SELECT r FROM Routine_1 r WHERE r.nameRoutine = :nameRoutine")
+    , @NamedQuery(name = "Routine.findByNotification", query = "SELECT r FROM Routine_1 r WHERE r.notification = :notification")})
 public class Routine implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,6 +63,10 @@ public class Routine implements Serializable {
     public Routine(Integer id, String nameRoutine) {
         this.id = id;
         this.nameRoutine = nameRoutine;
+    }
+    public Routine(String nameRoutine, String notification) {
+        this.nameRoutine = nameRoutine;
+        this.notification = notification;
     }
 
     public Integer getId() {
@@ -128,7 +132,9 @@ public class Routine implements Serializable {
 
     @Override
     public String toString() {
-        return "com.paradaily.entities.Routine[ id=" + id + " ]";
+        return "Routine{" + "id=" + id + ", nameRoutine=" + nameRoutine + ", notification=" + notification + ", productCollection=" + productCollection + ", userId=" + userId + '}';
     }
+
+    
     
 }
