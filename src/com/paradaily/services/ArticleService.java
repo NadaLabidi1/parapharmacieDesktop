@@ -6,6 +6,7 @@
 package com.paradaily.services;
 
 import com.paradaily.entities.Article;
+import com.paradaily.entities.ArticleLike;
 import com.paradaily.utils.DataSource;
 import java.sql.Connection;
 import java.sql.Date;
@@ -61,7 +62,7 @@ public class ArticleService {
         }
 
     }
-     public void DeleteArticlePST(Article a){
+     public void DeleteArticle(Article a){
                 String req="delete from article where id = ?";
         try {
             pst = connection.prepareStatement(req);
@@ -89,6 +90,62 @@ public class ArticleService {
             Logger.getLogger(ArticleService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;        
+    }
+    public List<ArticleLike> listejaime(int id) {
+        List<ArticleLike> myList = new ArrayList<ArticleLike>();
+
+        try { 
+            String requete = "SELECT * from article_like where article_id=" + id;  
+            pst = connection.prepareStatement(requete); 
+            rs = pst.executeQuery(requete);
+            while (rs.next()) {
+                ArticleLike p2 = new ArticleLike();
+                p2.setId(rs.getInt(1));
+                p2.setArticleId(rs.getInt(2));
+                p2.setUserId(rs.getInt(3));
+//               User u = new User(rs.getString(3));
+//              p2.setUsername(u);
+                myList.add(p2);
+
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return myList;
+
+    }
+    public int countLikes(int id) {
+        int a = 0;
+        try { 
+            String requete = "SELECT count(*) from article_like where article_id=" + id; 
+            pst = connection.prepareStatement(requete); 
+            rs = pst.executeQuery(requete);
+            while (rs.next()) {
+
+                a = rs.getInt(1);
+
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return a;
+
+    }
+    public void Like(ArticleLike a) {
+       
+            try {
+                String requete = "INSERT INTO article_like(article_id,user_id) VALUES(?,?) ";
+                pst = connection.prepareStatement(requete);
+                pst.setInt(2, a.getUserId());
+                pst.setInt(1, a.getArticleId());
+                pst.executeUpdate();
+                System.out.println("j'aime");
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+           
+        }
     }
     
     

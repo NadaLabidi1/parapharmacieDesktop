@@ -39,10 +39,10 @@ public class ArticleLike implements Serializable {
     private Integer id;
     @JoinColumn(name = "article_id", referencedColumnName = "id")
     @ManyToOne
-    private Article articleId;
+    private int articleId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
-    private User userId;
+    private int userId;
 
     public ArticleLike() {
     }
@@ -59,19 +59,19 @@ public class ArticleLike implements Serializable {
         this.id = id;
     }
 
-    public Article getArticleId() {
+    public int getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(Article articleId) {
+    public void setArticleId(int articleId) {
         this.articleId = articleId;
     }
 
-    public User getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(User userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
@@ -95,9 +95,13 @@ public class ArticleLike implements Serializable {
         return true;
     }
 
+    
+
     @Override
     public String toString() {
-        return "com.paradaily.entities.ArticleLike[ id=" + id + " ]";
+        return "ArticleLike{" + "id=" + id + ", articleId=" + articleId + ", userId=" + userId + '}';
     }
+    
+    
     
 }
