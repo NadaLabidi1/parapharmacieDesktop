@@ -7,6 +7,7 @@ package com.paradaily.services;
 
 import com.paradaily.entities.Article;
 import com.paradaily.entities.ArticleLike;
+import com.paradaily.entities.User;
 import com.paradaily.utils.DataSource;
 import java.sql.Connection;
 import java.sql.Date;
@@ -45,7 +46,7 @@ public class ArticleService {
         }
         
     }*/
-    public void ajouterArticlePST(Article a){
+    public void ajouterArticle(Article a){
                 String req="insert into article(title,description,image,created_at) values (?,?,?,?)";
         try {
             pst = connection.prepareStatement(req);
@@ -62,6 +63,8 @@ public class ArticleService {
         }
 
     }
+    
+    
      public void DeleteArticle(Article a){
                 String req="delete from article where id = ?";
         try {
@@ -76,6 +79,22 @@ public class ArticleService {
         }
 
     }
+     public void modifier(Article a) {
+        try {
+            String requete = "UPDATE article SET title=?, description=?, image=?, created_at=?  WHERE id=?";
+            pst = connection.prepareStatement(requete);
+            pst.setInt(5, a.getId());
+            pst.setString(1, a.getTitle());
+            pst.setString(2, a.getDescription());
+            pst.setString(3, a.getImage());
+            pst.setDate(4, new java.sql.Date(a.getCreatedAt().getTime()));
+            pst.executeUpdate();
+            System.out.println("Article modifié !");
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+     }
     
     public List<Article> readAll(){
         String req="select * from article";
@@ -99,10 +118,13 @@ public class ArticleService {
             pst = connection.prepareStatement(requete); 
             rs = pst.executeQuery(requete);
             while (rs.next()) {
+                
                 ArticleLike p2 = new ArticleLike();
                 p2.setId(rs.getInt(1));
-                p2.setArticleId(rs.getInt(2));
-                p2.setUserId(rs.getInt(3));
+                Article a = new Article(rs.getInt(2));
+                p2.setArticleId(a);
+                User u = new User(rs.getInt(3));
+                p2.setUserId(u);
 //               User u = new User(rs.getString(3));
 //              p2.setUsername(u);
                 myList.add(p2);
@@ -138,8 +160,9 @@ public class ArticleService {
             try {
                 String requete = "INSERT INTO article_like(article_id,user_id) VALUES(?,?) ";
                 pst = connection.prepareStatement(requete);
-                pst.setInt(2, a.getUserId());
-                pst.setInt(1, a.getArticleId());
+                a.getUserId().setId(22);
+                pst.setInt(2, a.getUserId().getId());
+                pst.setInt(1, a.getArticleId().getId());
                 pst.executeUpdate();
                 System.out.println("j'aime");
             } catch (SQLException ex) {

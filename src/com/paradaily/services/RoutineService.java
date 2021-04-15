@@ -6,6 +6,8 @@
 package com.paradaily.services;
 
 import com.paradaily.entities.Article;
+import com.paradaily.entities.Product;
+import com.paradaily.entities.ProductRoutine;
 import com.paradaily.entities.Routine;
 import com.paradaily.utils.DataSource;
 import java.sql.Connection;
@@ -66,6 +68,20 @@ public class RoutineService {
         }
 
     }
+    public void modifier(Routine a) {
+        try {
+            String requete = "UPDATE routine SET name_routine=?, notification=?  WHERE id=?";
+            pst = connection.prepareStatement(requete);
+            pst.setInt(3, a.getId());
+            pst.setString(1, a.getNameRoutine());
+            pst.setString(2, a.getNotification());
+            pst.executeUpdate();
+            System.out.println("Routine modifiée !");
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+     }
     public List<Routine> readAll(){
         String req="select * from routine";
         List<Routine> list = new ArrayList<>();
@@ -79,6 +95,37 @@ public class RoutineService {
             Logger.getLogger(ArticleService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;        
+    }
+    public void AjouterPR(ProductRoutine pr, Product p, Routine r){
+        
+        String req = "insert into routine_product(routine_id, product_id) values (?,?)";
+        try {
+            pst = connection.prepareStatement(req);
+            p.getId();
+            pst.setInt(1, pr.getProduct_id().getId());
+            r.getId();
+            pst.setInt(2, pr.getRoutine_id().getId());
+           
+            pst.executeUpdate();
+            System.out.println("ajout Produit à la routine");
+        } catch (SQLException ex) {
+            Logger.getLogger(ArticleService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
+    public void DeletePR(ProductRoutine pr){
+                String req="delete from routineproduct where id = ?";
+        try {
+            pst = connection.prepareStatement(req);
+            pst.setInt(1, pr.getId());
+            
+            
+            pst.executeUpdate();
+            System.out.println("Suppression routine");
+        } catch (SQLException ex) {
+            Logger.getLogger(ArticleService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     
 }

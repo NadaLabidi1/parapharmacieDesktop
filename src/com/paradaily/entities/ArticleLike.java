@@ -39,10 +39,10 @@ public class ArticleLike implements Serializable {
     private Integer id;
     @JoinColumn(name = "article_id", referencedColumnName = "id")
     @ManyToOne
-    private int articleId;
+    private Article articleId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
-    private int userId;
+    private User userId;
 
     public ArticleLike() {
     }
@@ -59,19 +59,19 @@ public class ArticleLike implements Serializable {
         this.id = id;
     }
 
-    public int getArticleId() {
+    public Article getArticleId() {
         return articleId;
     }
 
-    public void setArticleId(int articleId) {
+    public void setArticleId(Article articleId) {
         this.articleId = articleId;
     }
 
-    public int getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 

@@ -61,18 +61,17 @@ public class Paradailycrud extends Application {
            Article p1 = new Article("Article1","ksgf sqgvqlv iqshviq hqvgdeu duvgsi duvgkw kwsduvg wgvkjs kcjdvgksu jdvgsiu wjdvghcw jdvguy wdkjvg","ff05a37611eab6d96ba99e992da7aac5.jpeg",simpleDateFormat.parse("2021-02-22 12:54:44"));
        
         ArticleService ps = new ArticleService();
-        Article p2 = new Article(24,"Article1","ksgf sqgvqlv iqshviq hqvgdeu duvgsi duvgkw kwsduvg wgvkjs kcjdvgksu jdvgsiu wjdvghcw jdvguy wdkjvg","ff05a37611eab6d96ba99e992da7aac5.jpeg",simpleDateFormat.parse("2021-02-22 12:54:44"));
-        //ps.ajouterPersonne(p1);
-       //ps.ajouterArticlePST(p2);
+        //Article p2 = new Article(24,"Article1","ksgf sqgvqlv iqshviq hqvgdeu duvgsi duvgkw kwsduvg wgvkjs kcjdvgksu jdvgsiu wjdvghcw jdvguy wdkjvg","ff05a37611eab6d96ba99e992da7aac5.jpeg",simpleDateFormat.parse("2021-02-22 12:54:44"));
+       //ps.ajouterArticle(p2);
        
-        // Article p2 = new Article();
+        //Article p2 = new Article();
         //p2.setId(23);
         
        //ps.DeleteArticle(p2);
        
        
        //ps.readAll().forEach(e->System.out.println(e));
-       ps.listejaime(1).forEach(e->System.out.println(e));
+       //ps.listejaime(1).forEach(e->System.out.println(e));
         launch(args);     
     }
     
