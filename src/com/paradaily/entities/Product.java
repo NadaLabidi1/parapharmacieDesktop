@@ -7,19 +7,7 @@ package com.paradaily.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -27,62 +15,34 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Nada
  */
-@Entity
-@Table(name = "product")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
-    , @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id")
-    , @NamedQuery(name = "Product.findByNameProduct", query = "SELECT p FROM Product p WHERE p.nameProduct = :nameProduct")
-    , @NamedQuery(name = "Product.findByReference", query = "SELECT p FROM Product p WHERE p.reference = :reference")
-    , @NamedQuery(name = "Product.findByBrand", query = "SELECT p FROM Product p WHERE p.brand = :brand")
-    , @NamedQuery(name = "Product.findBySupplier", query = "SELECT p FROM Product p WHERE p.supplier = :supplier")
-    , @NamedQuery(name = "Product.findByTimeUse", query = "SELECT p FROM Product p WHERE p.timeUse = :timeUse")
-    , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")
-    , @NamedQuery(name = "Product.findBySkinType", query = "SELECT p FROM Product p WHERE p.skinType = :skinType")
-    , @NamedQuery(name = "Product.findByPhotoProduct", query = "SELECT p FROM Product p WHERE p.photoProduct = :photoProduct")})
+
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+    
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "name_product")
+    
     private String nameProduct;
-    @Basic(optional = false)
-    @Column(name = "reference")
+    
     private String reference;
-    @Basic(optional = false)
-    @Column(name = "brand")
+    
     private String brand;
-    @Basic(optional = false)
-    @Column(name = "supplier")
+    
     private String supplier;
-    @Basic(optional = false)
-    @Column(name = "time_use")
+   
     private String timeUse;
-    @Basic(optional = false)
-    @Column(name = "price")
+    
     private double price;
-    @Basic(optional = false)
-    @Column(name = "skin_type")
+    
     private String skinType;
-    @Column(name = "photo_product")
+    
     private String photoProduct;
-    @JoinTable(name = "routine_product", joinColumns = {
-        @JoinColumn(name = "product_id", referencedColumnName = "id")}, inverseJoinColumns = {
-        @JoinColumn(name = "routine_id", referencedColumnName = "id")})
-    @ManyToMany
+    
     private Collection<Routine> routineCollection;
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
-    @ManyToOne
+    
     private Category categoryId;
-    @JoinColumn(name = "admin_id", referencedColumnName = "id")
-    @ManyToOne
-    private Admin adminId;
+   
+    private User adminId;
 
     public Product() {
     }
@@ -191,11 +151,11 @@ public class Product implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public Admin getAdminId() {
+    public User getAdminId() {
         return adminId;
     }
 
-    public void setAdminId(Admin adminId) {
+    public void setAdminId(User adminId) {
         this.adminId = adminId;
     }
 

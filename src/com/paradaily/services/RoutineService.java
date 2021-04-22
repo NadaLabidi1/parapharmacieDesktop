@@ -89,39 +89,47 @@ public class RoutineService {
             ste = connection.createStatement();
             rs=ste.executeQuery(req);
             while (rs.next()){
-                list.add(new Routine(rs.getString(3),rs.getString(4)));
+                list.add(new Routine(rs.getInt(1),rs.getString(3),rs.getString(4)));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ArticleService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RoutineService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;        
     }
-    public void AjouterPR(ProductRoutine pr, Product p, Routine r){
-        
-        String req = "insert into routine_product(routine_id, product_id) values (?,?)";
+    public List<Product> readAllProducts(){
+        String req="select * from Product";
+        List<Product> list = new ArrayList<>();
         try {
-            pst = connection.prepareStatement(req);
-            p.getId();
-            pst.setInt(1, pr.getProduct_id().getId());
-            r.getId();
-            pst.setInt(2, pr.getRoutine_id().getId());
-           
-            pst.executeUpdate();
-            System.out.println("ajout Produit à la routine");
+            ste = connection.createStatement();
+            rs=ste.executeQuery(req);
+            while (rs.next()){
+                list.add(new Product(rs.getInt(1)));
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(ArticleService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RoutineService.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
+        return list;        
     }
-    public void DeletePR(ProductRoutine pr){
-                String req="delete from routineproduct where id = ?";
+    
+    public void AjouterPR(Product pr, Routine r) {
+        String req="insert into routine_product (routine_id,product_id) values ('"+r.getId()+"','"+pr.getId()+"')";
+        try {
+            ste.executeUpdate(req);
+        } catch (SQLException ex) {
+            Logger.getLogger(RoutineService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void DeletePR(Product pr, Routine r){
+                String req="delete from routine_product where routine_id = ? and product_id = ? ";
         try {
             pst = connection.prepareStatement(req);
-            pst.setInt(1, pr.getId());
+            pst.setInt(1,r.getId());
+            pst.setInt(2, pr.getId());
             
             
             pst.executeUpdate();
-            System.out.println("Suppression routine");
+            System.out.println("Suppression produit"+pr.getNameProduct()+ " routine");
         } catch (SQLException ex) {
             Logger.getLogger(ArticleService.class.getName()).log(Level.SEVERE, null, ex);
         }

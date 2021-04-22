@@ -8,21 +8,6 @@ package com.paradaily.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -30,41 +15,24 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Nada
  */
-@Entity
-@Table(name = "article")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Article_1.findAll", query = "SELECT a FROM Article_1 a")
-    , @NamedQuery(name = "Article_1.findById", query = "SELECT a FROM Article_1 a WHERE a.id = :id")
-    , @NamedQuery(name = "Article_1.findByTitle", query = "SELECT a FROM Article_1 a WHERE a.title = :title")
-    , @NamedQuery(name = "Article_1.findByImage", query = "SELECT a FROM Article_1 a WHERE a.image = :image")
-    , @NamedQuery(name = "Article_1.findByCreatedAt", query = "SELECT a FROM Article_1 a WHERE a.createdAt = :createdAt")})
-public class Article implements Serializable {
+
+public class Article {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+    
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "title")
+    
     private String title;
-    @Basic(optional = false)
-    @Lob
-    @Column(name = "description")
+    
     private String description;
-    @Column(name = "image")
+    
     private String image;
-    @Basic(optional = false)
-    @Column(name = "created_at")
-    @Temporal(TemporalType.TIMESTAMP)
+    
     private Date createdAt;
-    @OneToMany(mappedBy = "articleId")
+    
     private Collection<ArticleLike> articleLikeCollection;
-    @JoinColumn(name = "admin_id", referencedColumnName = "id")
-    @ManyToOne
-    private Admin adminId;
+   
+    private User adminId;
 
     public Article() {
     }
@@ -136,11 +104,11 @@ public class Article implements Serializable {
         this.articleLikeCollection = articleLikeCollection;
     }
 
-    public Admin getAdminId() {
+    public User getAdminId() {
         return adminId;
     }
 
-    public void setAdminId(Admin adminId) {
+    public void setAdminId(User adminId) {
         this.adminId = adminId;
     }
 

@@ -7,16 +7,7 @@ package com.paradaily.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -24,25 +15,14 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Nada
  */
-@Entity
-@Table(name = "category")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
-    , @NamedQuery(name = "Category.findById", query = "SELECT c FROM Category c WHERE c.id = :id")
-    , @NamedQuery(name = "Category.findByNameCategory", query = "SELECT c FROM Category c WHERE c.nameCategory = :nameCategory")})
-public class Category implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+public class Category  {
+
+   
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "name_category")
+    
     private String nameCategory;
-    @OneToMany(mappedBy = "categoryId")
+   
     private Collection<Product> productCollection;
 
     public Category() {

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="paradailycrud">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/paradailycrud.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

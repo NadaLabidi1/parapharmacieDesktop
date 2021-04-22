@@ -23,6 +23,11 @@ public class ProductRoutine {
         this.routine_id = routine_id;
         this.product_id = product_id;
     }
+     public ProductRoutine(Routine routine_id, Product product_id) {
+        
+        this.routine_id = routine_id;
+        this.product_id = product_id;
+    }
     
     
 

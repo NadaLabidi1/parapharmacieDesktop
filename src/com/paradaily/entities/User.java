@@ -8,18 +8,7 @@ package com.paradaily.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -27,59 +16,32 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author Nada
  */
-@Entity
-@Table(name = "user")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
-    , @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id")
-    , @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName")
-    , @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName")
-    , @NamedQuery(name = "User.findByDateBirth", query = "SELECT u FROM User u WHERE u.dateBirth = :dateBirth")
-    , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
-    , @NamedQuery(name = "User.findByAdress", query = "SELECT u FROM User u WHERE u.adress = :adress")
-    , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
-    , @NamedQuery(name = "User.findBySkinType", query = "SELECT u FROM User u WHERE u.skinType = :skinType")
-    , @NamedQuery(name = "User.findByPhoneNumber", query = "SELECT u FROM User u WHERE u.phoneNumber = :phoneNumber")
-    , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")})
-public class User implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+public class User {
+
+   
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "first_name")
+    
     private String firstName;
-    @Basic(optional = false)
-    @Column(name = "last_name")
+    
     private String lastName;
-    @Basic(optional = false)
-    @Column(name = "date_birth")
-    @Temporal(TemporalType.DATE)
+    
     private Date dateBirth;
-    @Basic(optional = false)
-    @Column(name = "email")
+    
     private String email;
-    @Basic(optional = false)
-    @Column(name = "adress")
+    
     private String adress;
-    @Basic(optional = false)
-    @Column(name = "password")
+    
     private String password;
-    @Basic(optional = false)
-    @Column(name = "skin_type")
+    
     private String skinType;
-    @Basic(optional = false)
-    @Column(name = "phone_number")
+    
     private int phoneNumber;
-    @Column(name = "username")
+   
     private String username;
-    @OneToMany(mappedBy = "userId")
+    
     private Collection<Routine> routineCollection;
-    @OneToMany(mappedBy = "userId")
+   
     private Collection<ArticleLike> articleLikeCollection;
 
     public User() {

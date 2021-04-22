@@ -6,7 +6,11 @@
 package paradailycrud;
 
 import com.paradaily.entities.Article;
+import com.paradaily.entities.Product;
+import com.paradaily.entities.ProductRoutine;
+import com.paradaily.entities.Routine;
 import com.paradaily.services.ArticleService;
+import com.paradaily.services.RoutineService;
 import com.paradaily.utils.DataSource;
 import java.text.ParseException;
 import java.util.Date;
@@ -16,9 +20,15 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -28,51 +38,26 @@ import javafx.stage.Stage;
 public class Paradailycrud extends Application {
     
     @Override
-    public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
+    public void start(Stage PrimaryStage) throws Exception{
         
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        Parent root = FXMLLoader.load(getClass().getResource("GestionArticles.fxml"));
+        Scene scene = new Scene(root);
+        Image icon = new Image("logo.png");
+        PrimaryStage.getIcons().add(icon);      
+        PrimaryStage.setTitle("Welcome");
+        PrimaryStage.setScene(scene);
+        PrimaryStage.show();
     }
-
-    /**
-     * @param args the command line arguments
-     * @throws java.text.ParseException
-     */
+    
+    
     public static void main(String[] args) throws ParseException {
         
         
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         
-           Article p1 = new Article("Article1","ksgf sqgvqlv iqshviq hqvgdeu duvgsi duvgkw kwsduvg wgvkjs kcjdvgksu jdvgsiu wjdvghcw jdvguy wdkjvg","ff05a37611eab6d96ba99e992da7aac5.jpeg",simpleDateFormat.parse("2021-02-22 12:54:44"));
-       
-        ArticleService ps = new ArticleService();
-        //Article p2 = new Article(24,"Article1","ksgf sqgvqlv iqshviq hqvgdeu duvgsi duvgkw kwsduvg wgvkjs kcjdvgksu jdvgsiu wjdvghcw jdvguy wdkjvg","ff05a37611eab6d96ba99e992da7aac5.jpeg",simpleDateFormat.parse("2021-02-22 12:54:44"));
-       //ps.ajouterArticle(p2);
-       
-        //Article p2 = new Article();
-        //p2.setId(23);
+        launch(args);
         
-       //ps.DeleteArticle(p2);
-       
-       
-       //ps.readAll().forEach(e->System.out.println(e));
-       //ps.listejaime(1).forEach(e->System.out.println(e));
-        launch(args);     
-    }
+        
+    }    
     
+   
 }

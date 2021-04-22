@@ -17,8 +17,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -96,20 +99,21 @@ public class ArticleService {
         }
      }
     
-    public List<Article> readAll(){
-        String req="select * from article";
-        List<Article> list = new ArrayList<>();
+    public ObservableList<Article> readAll(){
+        String req="select * from Article";
+        ObservableList<Article> list = FXCollections.observableArrayList();
         try {
-            ste = connection.createStatement();
-            rs=ste.executeQuery(req);
+            ste=connection.createStatement();
+            rs =  ste.executeQuery(req);
             while (rs.next()){
-                list.add(new Article(rs.getString(3), rs.getString(4),rs.getString(5),rs.getDate(6)));
+                list.add(new Article(rs.getInt("id"),rs.getString("title"), rs.getString("description"),rs.getString("image"), rs.getDate("created_at")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ArticleService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return list;        
+        return  list;        
     }
+    
     public List<ArticleLike> listejaime(int id) {
         List<ArticleLike> myList = new ArrayList<ArticleLike>();
 
@@ -155,14 +159,16 @@ public class ArticleService {
         return a;
 
     }
-    public void Like(ArticleLike a) {
+    public void Like(ArticleLike a, User u) {
        
             try {
-                String requete = "INSERT INTO article_like(article_id,user_id) VALUES(?,?) ";
+                String requete = "INSERT INTO article_like(article_id,user_id) VALUES(?,?) where user_id != ? ";
                 pst = connection.prepareStatement(requete);
-                a.getUserId().setId(22);
+                a.getUserId();
                 pst.setInt(2, a.getUserId().getId());
                 pst.setInt(1, a.getArticleId().getId());
+                pst.setInt(3, u.getId());
+                
                 pst.executeUpdate();
                 System.out.println("j'aime");
             } catch (SQLException ex) {
