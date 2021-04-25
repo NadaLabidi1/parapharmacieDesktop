@@ -2,6 +2,9 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableColumn?>
@@ -19,7 +22,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="543.0" prefWidth="842.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.paradaily.views.GestionArticlesController">
+<AnchorPane id="AnchorPane" prefHeight="581.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.paradaily.views.GestionArticlesController">
    <children>
       <VBox prefHeight="512.0" prefWidth="255.0" style="-fx-background-color: #d6bbf2;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -62,7 +65,7 @@
                </padding>
                
             </Button>
-            <Button fx:id="btn_list" alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="62.0" mnemonicParsing="false" onAction="#show_articles" prefHeight="52.0" prefWidth="260.0" style="-fx-background-color: #d6bbf2;" text="liste des articles" textFill="#2f0d57">
+            <Button fx:id="btn_list" alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="62.0" mnemonicParsing="false" onAction="#show_articles" prefHeight="52.0" prefWidth="260.0" style="-fx-background-color: #d6bbf2;" text="Liste des articles" textFill="#2f0d57">
                <opaqueInsets>
                   <Insets bottom="50.0" left="5.0" right="5.0" top="50.0" />
                </opaqueInsets>
@@ -77,11 +80,25 @@
                </padding>
                
             </Button>
+            <Button fx:id="btn_stat" alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="246.0" mnemonicParsing="false" onAction="#show_stats" prefHeight="52.0" prefWidth="260.0" style="-fx-background-color: #d6bbf2;" text="Statistiques" textFill="#2f0d57">
+               <opaqueInsets>
+                  <Insets bottom="50.0" left="5.0" right="5.0" top="50.0" />
+               </opaqueInsets>
+               <font>
+                  <Font name="Calibri Bold" size="17.0" />
+               </font>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <graphic>
+                  <FontAwesomeIconView fill="#2f0d57" glyphName="BAR_CHART" size="20.0" />
+               </graphic>
+            </Button>
          </children>
       </VBox>
-      <VBox layoutX="263.0" layoutY="157.0" prefHeight="364.0" prefWidth="622.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="157.0">
+      <VBox layoutX="260.0" layoutY="172.0" prefHeight="379.0" prefWidth="656.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="172.0">
          <children>
-            <GridPane prefHeight="365.0" prefWidth="622.0">
+            <GridPane prefHeight="361.0" prefWidth="656.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -90,16 +107,16 @@
                 <RowConstraints maxHeight="324.0" minHeight="10.0" prefHeight="323.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TableView fx:id="articles" prefHeight="343.0" prefWidth="622.0" visible="false" GridPane.rowIndex="1">
+                  <TableView fx:id="articles" prefHeight="357.0" prefWidth="656.0" visible="false" GridPane.rowIndex="1">
                     <columns>
                       <TableColumn fx:id="col_id" prefWidth="62.0" text="ID" />
                       <TableColumn fx:id="col_title" prefWidth="113.0" text="titre" />
-                        <TableColumn fx:id="col_description" prefWidth="147.0" text="Description" />
-                        <TableColumn fx:id="col_image" prefWidth="172.0" text="image" />
-                        <TableColumn fx:id="col_created_at" prefWidth="131.0" text="Date de création" />
+                        <TableColumn fx:id="col_description" prefWidth="226.0" text="Description" />
+                        <TableColumn fx:id="col_created_at" prefWidth="125.0" text="Date de création" />
+                        <TableColumn fx:id="col_action" prefWidth="129.0" text="Action" />
                     </columns>
                   </TableView>
-                  <AnchorPane fx:id="ajoutarticle" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                  <AnchorPane fx:id="ajoutarticle" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.rowIndex="1">
                      <children>
                         <Button fx:id="btn_ajout" layoutX="145.0" layoutY="254.0" mnemonicParsing="false" onAction="#add_article" text="Ajouter Article" />
                         <VBox layoutX="72.0" layoutY="27.0" prefHeight="200.0" prefWidth="100.0">
@@ -159,13 +176,31 @@
                            </children>
                         </VBox>
                         <ImageView fx:id="imageview" fitHeight="114.0" fitWidth="123.0" layoutX="437.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
+                        <Button fx:id="btn_modify" layoutX="328.0" layoutY="254.0" mnemonicParsing="false" onAction="#modifier_article" text="Modifier L'article" />
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="btn_recherche" mnemonicParsing="false" onAction="#recherche" prefHeight="33.0" prefWidth="488.0" text="Rechercher" visible="false">
+                     <graphic>
+                        <TextField fx:id="champs" prefHeight="25.0" prefWidth="382.0" />
+                     </graphic>
+                  </Button>
+                  <AnchorPane fx:id="graphhandler" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                     <children>
+                        <BarChart fx:id="barchart" layoutX="4.0" layoutY="-162.0" prefHeight="565.0" prefWidth="646.0" title="Top 5 articles likés" titleSide="LEFT">
+                          <xAxis>
+                            <CategoryAxis fx:id="AxisX" label="Titre" side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis fx:id="AxisY" label="nombre de likes" side="LEFT" upperBound="50.0" />
+                          </yAxis>
+                        </BarChart>
                      </children>
                   </AnchorPane>
                </children>
             </GridPane>
          </children>
       </VBox>
-      <Pane layoutX="260.0" layoutY="14.0" prefHeight="132.0" prefWidth="582.0" style="-fx-background-color: #d6bbf2;">
+      <Pane fx:id="titlepane" layoutX="260.0" layoutY="14.0" prefHeight="132.0" prefWidth="656.0" style="-fx-background-color: #d6bbf2;">
          <children>
             <Text fx:id="text_titre" fill="#2f0d57" layoutX="254.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mes Articles" textAlignment="CENTER" wrappingWidth="178.000006377697">
                <font>

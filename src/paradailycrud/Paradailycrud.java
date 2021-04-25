@@ -40,7 +40,7 @@ public class Paradailycrud extends Application {
     @Override
     public void start(Stage PrimaryStage) throws Exception{
         
-        Parent root = FXMLLoader.load(getClass().getResource("GestionArticles.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/paradaily/views/GestionArticles.fxml"));
         Scene scene = new Scene(root);
         Image icon = new Image("logo.png");
         PrimaryStage.getIcons().add(icon);      
@@ -53,7 +53,8 @@ public class Paradailycrud extends Application {
     public static void main(String[] args) throws ParseException {
         
         
-        
+        ArticleService as = new ArticleService();
+       // as.articletop5().forEach((e) -> System.out.println(e));
         launch(args);
         
         
